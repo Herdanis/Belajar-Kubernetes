@@ -1,0 +1,40 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: contoh-deployment-volume
+spec:
+  selector:
+    matchLabels:
+      app: contoh-deployment-volume
+  template:
+    metadata:
+      labels:
+        app: contoh-deployment-volume
+    spec:
+      containers:
+        - name: container-volume-1
+          image: herdanis/simple-service:1.0
+          resources:
+            limits:
+              memory: "128Mi"
+              cpu: "500m"
+          ports:
+            - containerPort: 8089
+          volumeMounts:
+            - name: disk
+              mountPath: /app/data
+        - name: container-volume-2
+          image: nginx
+          resources:
+            limits:
+              memory: "128Mi"
+              cpu: "500m"
+          ports:
+            - containerPort: 8089
+          volumeMounts:
+            - name: disk
+              mountPath: /root/volume
+      volumes:
+        - name: disk
+          hostPath:
+            path: /home/data-host

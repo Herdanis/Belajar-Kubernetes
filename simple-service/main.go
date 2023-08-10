@@ -8,6 +8,7 @@ import (
 type Response struct {
 	StatusCode int `json:"status_code"`
 	Message string `json:"message"`
+	Version string `json:"version"`
 }
 
 func main()  {
@@ -15,6 +16,7 @@ func main()  {
 		response := Response{
 			StatusCode: 200,
 			Message:    "OK",
+			Version: "2.0",
 		}
 
 		// Set the content type to JSON

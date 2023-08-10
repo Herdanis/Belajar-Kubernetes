@@ -26,11 +26,11 @@
 
 ## 🧐 About <a name = "about"></a>
 
-Ini adalah project untuk belajar bareng dan pengingat untuk diri saya sendiri tentang DevOps, Di repo ini mempelajari materi tentang Kubernetes dan command nya
+Ini adalah project untuk belajar bareng dan pengingat untuk diri saya sendiri tentang DevOps Engineer, Di repo ini mempelajari materi tentang Kubernetes dan command nya.
 
 ## 🏁 Getting Started <a name = "getting_started"></a>
 
-Dibutuhan pemahaman dasar tentang Docker untuk memulai pelajaran ini, dan sudah menginstall minikube untuk melakukan simulasi kubenetes, saya sendiri menggunakan minikube docker untuk menjalankannya
+Dibutuhan pemahaman dasar tentang Docker untuk memulai pelajaran ini, dan sudah menginstall minikube untuk melakukan simulasi kubenetes, saya sendiri menggunakan minikube docker untuk menjalankannya. image yg di gunakan adalah `nginx` dan `herdanis/simple-service`. Jika ingin memodifikasi image bisa ke dalam directori simple-service dan lakukan build docker image.
 
 ## 📟 List Command <a name="command"></a>
 
@@ -77,6 +77,18 @@ kubectl exec -i <NAMA_POD> -- <COMMAND>
 kubectl exec -it <NAMA_POD> -- sh
 ## untuk multi container ##
 kubectl exec -it <NAMA_POD> -c <NAMA_CONTAINER> -- sh
+```
+
+Command Deployment/Statefull/Daemon
+
+```
+kubectl set image deployment/<NAMA_DEPLOYMENT> <NAMA_CONTAINER>=<NAMA_IMAGE>
+kubectl rollout status deployment <NAMA_DEPLOYMENT>
+kubectl rollout restart deployment/<NAMA_DEPLOYMENT>
+kubectl rollout undo deployment/<NAMA_DEPLOYMENT>
+kubectl rollout history deployment/<NAMA_DEPLOYMENT>
+kubectl rollout pause deployment/<NAMA_DEPLOYMENT>
+kubectl rollout resume deployment/<NAMA_DEPLOYMENT>
 ```
 
 ## 💉 Addon <a name = "addon"></a>

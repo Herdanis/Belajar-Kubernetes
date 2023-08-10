@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: contoh-deployment
+spec:
+  replicas: 2
+  revisionHistoryLimit: 6
+  strategy:
+    # type: Recreate
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 0
+  selector:
+    matchLabels:
+      app: contoh-deployment
+  template:
+    metadata:
+      labels:
+        app: contoh-deployment
+    spec:
+      containers:
+        - name: contoh-deployment
+          image: herdanis/simple-service:2.0
+          resources:
+            limits:
+              memory: "128Mi"
+              cpu: "500m"
+          ports:
+            - containerPort: 8089
+          imagePullPolicy: Always
