@@ -8,8 +8,8 @@
 <div align="center">
 
 [![Status](https://img.shields.io/badge/status-active-success.svg)]()
-[![GitHub Issues](https://img.shields.io/github/issues/Herdanis/Duat)](https://github.com/Herdanis/Duat/issues)
-[![GitHub Pull Requests](https://img.shields.io/github/issues-pr/Herdanis/Duat)](https://github.com/Herdanis/Duat/pulls)
+[![GitHub Issues](https://img.shields.io/github/issues/Herdanis/Belajar-Kubernetes)](https://github.com/Herdanis/Belajar-Kubernetes)
+[![GitHub Pull Requests](https://img.shields.io/github/issues-pr/Herdanis/Belajar-Kubernetes)](https://github.com/Herdanis/Belajar-Kubernetes/pulls)
 
 </div>
 
@@ -77,63 +77,62 @@ kubectl exec -i <NAMA_POD> -- <COMMAND>
 kubectl exec -it <NAMA_POD> -- sh
 ## untuk multi container ##
 kubectl exec -it <NAMA_POD> -c <NAMA_CONTAINER> -- sh
-
 ```
 
 ## 💉 Addon <a name = "addon"></a>
 
-Manage Kubernetes Object
-
+<h5>- Manage Kubernetes Object</h5>
 Menggunakan Declarative Management memungkinkan, untuk kubernetes akan menyimpan config sebelum nya ke dalam annotation object, tujuan nya untuk mempermudah kita untuk melalukan update/rollback
 
 ## 🫙 Minikube Docker <a name = "minikube"></a>
 
 Beberapa command untuk memaksimalkan minikube dengan docker
 
-- Mengeset Docker driver sebagai default
+- \*Setup Docker driver sebagai default
 
 ```
 minikube config set driver docker
 ```
 
-- Menjalankan Minikube
+- Running Minikube
 
 ```
 minikube start
 ```
 
-- Menghapus semua minikube
+- Delete semua minikube
 
 ```
 minikube delete
 ```
 
-- Mengenable Ingress
+- Enable Ingress di Minikube
 
 ```
 minikube addons enable ingress
 ```
 
-- Mengexpose Internal Service
+- Mengexpose Internal Service Minikube
 
 ```
 minikube servce <NAMA_SERVICE>
 ```
 
-- Membuat tunnel ingress
+- \*Membuat tunnel ingress Minikube (perlu menjalankan command ini jika mengu)
 
 ```
 minikube tunnel
 ```
 
+\* Command perlu di jalankan jika Minikube ada di Docker
+
 ## ✍️ Authors <a name = "authors"></a>
 
 - [@Herdanis](https://github.com/Herdanis) - Idea & Initial work
 
-See also the list of [contributors](https://github.com/Herdanis/Duat/graphs/contributors) who participated in this project.
+See also the list of [contributors](https://github.com/Herdanis/Belajar-Kubernetes/graphs/contributors) who participated in this project.
 
 ## 🎉 Acknowledgements <a name = "acknowledgement"></a>
 
-- https://www.postgresql.org/docs/current/app-pgdump.html
-- https://stackoverflow.com/a/24158972
-- https://dev.mysql.com/doc/refman/8.0/en/mysqldump.html
+- https://kubernetes.io/docs/tutorials/
+- https://www.youtube.com/playlist?list=PL-CtdCApEFH8XrWyQAyRd6d_CKwxD8Ime
