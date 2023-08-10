@@ -1,0 +1,19 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: contoh-anntotation
+  labels:
+    name: contoh-anntotation
+  annotations:
+    key: value
+    desc: ini contoh annotation untuk kubernetes
+spec:
+  containers:
+    - name: contoh-anntotation
+      image: herdanis/simple-service:1.0
+      resources:
+        limits:
+          memory: "128Mi"
+          cpu: "500m"
+      ports:
+        - containerPort: 8089

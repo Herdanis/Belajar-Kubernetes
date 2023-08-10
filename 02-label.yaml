@@ -1,0 +1,19 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: contoh-label
+  labels:
+    key: value
+    app: contoh-label
+    type: backend-service
+    lang: golang
+spec:
+  containers:
+    - name: contoh-label
+      image: herdanis/simple-service:1.0
+      resources:
+        limits:
+          memory: "128Mi"
+          cpu: "500m"
+      ports:
+        - containerPort: 8089

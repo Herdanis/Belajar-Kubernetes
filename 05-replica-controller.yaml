@@ -1,0 +1,20 @@
+apiVersion: v1
+kind: ReplicationController
+metadata:
+  name: contoh-replication-controller
+spec:
+  replicas: 2
+  selector:
+    app: contoh-replication-controller
+  template:
+    metadata:
+      name: contoh-replication-controller
+      labels:
+        app: contoh-replication-controller
+        env: staging
+    spec:
+      containers:
+        - name: contoh-replication-controller
+          image: herdanis/simple-service:1.0
+          ports:
+            - containerPort: 8098

@@ -1,0 +1,38 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: external-service
+spec:
+  type: ExternalName
+  externalName: contoh-service.default.svc.cluster.local
+  ports:
+    - port: 8081
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: contoh-service
+spec:
+  selector:
+    app: rs-service
+  ports:
+    - port: 80
+      targetPort: 8089
+---
+apiVersion: apps/v1
+kind: ReplicaSet
+metadata:
+  name: rs-service
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: rs-service
+  template:
+    metadata:
+      labels:
+        app: rs-service
+    spec:
+      containers:
+        - name: rs-service
+          image: herdanis/simple-service:1.0

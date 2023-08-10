@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: contoh-pod
+spec:
+  containers:
+    - name: contoh-pod
+      image: herdanis/simple-service:1.0
+      resources:
+        limits:
+          memory: "128Mi"
+          cpu: "500m"
+      ports:
+        - containerPort: 8089

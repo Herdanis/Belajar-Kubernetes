@@ -1,0 +1,23 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: contoh-environment
+  labels:
+    name: contoh-environment
+spec:
+  containers:
+    - name: contoh-environment
+      image: herdanis/simple-service:1.0
+      resources:
+        limits:
+          memory: "128Mi"
+          cpu: "500m"
+      ports:
+        - containerPort: 8089
+      env:
+        - name: LANG
+          value: "Golang"
+        - name: USER
+          value: "belajar"
+        - name: PASSWORD
+          value: "QWErty"
