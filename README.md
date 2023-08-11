@@ -91,6 +91,15 @@ kubectl rollout pause deployment/<NAMA_DEPLOYMENT>
 kubectl rollout resume deployment/<NAMA_DEPLOYMENT>
 ```
 
+Command Job/CronJob
+
+```
+kubectl get job
+kubectl get job
+kubectl logs job/<NAMA_JOB>
+kubectl describe job/<NAMA_JOB>
+```
+
 ## 💉 Addon <a name = "addon"></a>
 
 <h5>- Manage Kubernetes Object</h5>
@@ -122,6 +131,12 @@ minikube delete
 
 ```
 minikube addons enable ingress
+```
+
+- Enable Kubernetes Dashboard di Minikube
+
+```
+minikube addons enable dashboard
 ```
 
 - Mengexpose Internal Service Minikube

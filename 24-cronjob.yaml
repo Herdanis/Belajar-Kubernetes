@@ -1,0 +1,22 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: contoh-cronjob
+spec:
+  schedule: "* * * * *"
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          containers:
+            - name: cek-directory
+              command:
+                - pwd
+              image: herdanis/simple-service:1.0
+              env:
+                - name: TZ
+                  value: "Asia/Jakarta"
+          restartPolicy: OnFailure
+  startingDeadlineSeconds: 100
+  successfulJobsHistoryLimit: 5
+  failedJobsHistoryLimit: 2

@@ -1,0 +1,39 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: contoh-probe
+spec:
+  selector:
+    matchLabels:
+      app: contoh-probe
+  template:
+    metadata:
+      labels:
+        app: contoh-probe
+    spec:
+      containers:
+        - name: contoh-probe
+          image: herdanis/simple-service:1.0
+          startupProbe:
+            exec:
+              command:
+                - pwd
+            initialDelaySeconds: 2
+          readinessProbe:
+            httpGet:
+              path: /
+              port: 8089
+            initialDelaySeconds: 2
+            successThreshold: 3
+          livenessProbe:
+            httpGet:
+              path: /
+              port: 8089
+            timeoutSeconds: 1
+            failureThreshold: 3
+          resources:
+            limits:
+              memory: "128Mi"
+              cpu: "500m"
+          ports:
+            - containerPort: 8089
