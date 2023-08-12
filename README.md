@@ -20,8 +20,9 @@
 - [About](#about)
 - [Getting Started](#getting_started)
 - [List Command](#command)
-- [Authors](#authors)
 - [Addon](#addon)
+- [Minikube](#minikube)
+- [Authors](#authors)
 - [Acknowledgements](#acknowledgement)
 
 ## 🧐 About <a name = "about"></a>
