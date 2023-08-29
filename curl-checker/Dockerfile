@@ -9,5 +9,4 @@ FROM alpine
 
 WORKDIR /app
 COPY --from=builder /app/main main
-EXPOSE 8089
-# CMD /app/main
+CMD ["top"]

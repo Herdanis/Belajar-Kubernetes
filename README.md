@@ -99,6 +99,7 @@ kubectl get job
 kubectl get job
 kubectl logs job/<NAMA_JOB>
 kubectl describe job/<NAMA_JOB>
+kubectl create job --from=job/<NAMA_JOB> <NAMA_CONTAINER>
 ```
 
 ## 💉 Addon <a name = "addon"></a>
@@ -143,7 +144,7 @@ minikube addons enable dashboard
 - Mengexpose Internal Service Minikube
 
 ```
-minikube servce <NAMA_SERVICE>
+minikube service <NAMA_SERVICE>
 ```
 
 - \*Membuat tunnel ingress Minikube (perlu menjalankan command ini jika mengu)
@@ -162,5 +163,6 @@ See also the list of [contributors](https://github.com/Herdanis/Belajar-Kubernet
 
 ## 🎉 Acknowledgements <a name = "acknowledgement"></a>
 
-- https://kubernetes.io/docs/tutorials/
-- https://www.youtube.com/playlist?list=PL-CtdCApEFH8XrWyQAyRd6d_CKwxD8Ime
+- [Kubernetes Documantation](https://kubernetes.io/docs/tutorials/) - Official Documentation
+- [Belajar Kubernetes untuk Pemula](https://www.youtube.com/playlist?list=PL-CtdCApEFH8XrWyQAyRd6d_CKwxD8Ime) - Programmer Zaman Now
+- [Kubernetes Certified Application Developer (CKAD) with Tests](https://www.udemy.com/share/1013BQ3@_KyUdXYfQSBO83u8_YIHi3roVPUuYBWDfxrA6LupW87ngAWAfsHfXetI02bLHW7M/) - Mumshad Mannambeth, KodeKloud Training, Vijin Palazhi

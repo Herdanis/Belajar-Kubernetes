@@ -1,0 +1,92 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: aplikasi
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: cm-tugas-1
+  namespace: aplikasi
+data:
+  PORT: "8089"
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: secret-tugas-1
+  namespace: aplikasi
+type: Opaque
+stringData:
+  SECRET_MESSAGE: "ini data rahasia"
+---
+apiVersion: apps/v1
+kind: ReplicaSet
+metadata:
+  name: rs-tugas-1
+  namespace: aplikasi
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: rs-tugas-1
+  template:
+    metadata:
+      labels:
+        app: rs-tugas-1
+    spec:
+      containers:
+        - name: rs-tugas-1
+          image: herdanis/simple-service:4.0
+          ports:
+            - containerPort: 8089
+          envFrom:
+            - configMapRef:
+                name: cm-tugas-1
+            - secretRef:
+                name: secret-tugas-1
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: svc-tugas-1
+  namespace: aplikasi
+spec:
+  selector:
+    app: rs-tugas-1
+  ports:
+    - port: 80
+      targetPort: 8089
+      name: 80-8089
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: watcher
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: watcher-configmap
+  namespace: watcher
+data:
+  CHECKSITE_URL: http://svc-tugas-1.aplikasi.svc.cluster.local
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: watcher-po
+  namespace: watcher
+  labels:
+    name: watcher-po
+spec:
+  containers:
+    - name: watcher-po
+      image: herdanis/simple-service:checker
+      resources:
+        limits:
+          memory: "128Mi"
+          cpu: "500m"
+      env:
+        - name: CHECKSITE_URL
+          value: http://svc-tugas-1.aplikasi.svc.cluster.local
