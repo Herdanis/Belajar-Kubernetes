@@ -89,4 +89,4 @@ spec:
           cpu: "500m"
       env:
         - name: CHECKSITE_URL
-          value: http://svc-tugas-1.aplikasi.svc.cluster.local
+          value: http://svc-tugas-1.aplikasi
