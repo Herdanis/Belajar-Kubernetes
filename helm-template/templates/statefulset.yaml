@@ -1,0 +1,94 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: {{ include "helm.fullname" . }}
+  labels:
+    {{- include "helm.labels" . | nindent 4 }}
+spec:
+  {{- if not .Values.autoscaling.enabled }}
+  replicas: {{ .Values.replicaCount }}
+  {{- end }}
+  selector:
+    matchLabels:
+      {{- include "helm.selectorLabels" . | nindent 6 }}
+  volumeClaimTemplates:
+    - apiVersion: v1
+      kind: PersistentVolumeClaim 
+      metadata:
+        name: {{ .Values.stateful.storage.name }}
+        labels:
+      {{ include "helm.selectorLabels" . | nindent 6 }}
+      spec:
+        accessModes:
+          - ReadWriteOnce
+        storageClassName: {{ .Values.stateful.storage.className }}
+        resources:
+          requests:
+            storage: {{ .Values.stateful.storage.size }}
+  template:
+    metadata:
+      {{- with .Values.podAnnotations }}
+      annotations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      labels:
+        {{- include "helm.labels" . | nindent 8 }}
+	{{- with .Values.podLabels }}
+        {{- toYaml . | nindent 8 }}
+        {{- end }}
+    spec:
+      {{- with .Values.imagePullSecrets }}
+      imagePullSecrets:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      serviceAccountName: {{ include "helm.serviceAccountName" . }}
+      securityContext:
+        {{- toYaml .Values.podSecurityContext | nindent 8 }}
+      containers:
+        - name: {{ .Chart.Name }}
+          securityContext:
+            {{- toYaml .Values.securityContext | nindent 12 }}
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          env:
+          {{ if .Values.environments }}
+            {{ range $key, $value := .Values.environments }}
+              - name: {{ $key }}
+                value: {{ $value | quote }}
+            {{ end }}
+          {{ end }}
+          ports:
+            {{ range $item := .Values.service.ports }}
+              - name: {{ $item.name }}
+                containerPort: {{ $item.targetPort }}
+                protocol: {{ $item.protocol }}
+            {{ end }} 
+          {{- if .Values.probe.livenessProbe }}
+          livenessProbe:
+            {{- toYaml .Values.probe.livenessProbe | nindent 12 }}
+          {{- end }}
+          {{- if .Values.probe.readinessProbe }}
+          readinessProbe:
+            {{- toYaml .Values.probe.readinessProbe | nindent 12 }}
+          {{- end }}
+          {{- if .Values.probe.startupProbe }}
+          startupProbe:
+            {{- toYaml .Values.probe.startupProbe | nindent 12 }}
+          {{- end }}
+          resources:
+            {{- toYaml .Values.resources | nindent 12 }}
+          volumeMounts:
+            - name: {{ .Values.stateful.storage.name }}
+              mountPath: {{ .Values.stateful.storage.mountPath }} 
+      {{- with .Values.nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.affinity }}
+      affinity:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
